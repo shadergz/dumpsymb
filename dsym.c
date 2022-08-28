@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     BinError_t err = BinLoadFile(argv[1], &ctx);
 
     if (err != BIN_E_OK)
-        return fprintf(stderr, "something wrong has heppen: %s\n", BinErrorToStr(err));
+        return fprintf(stderr, "something wrong has happen: %s\n", BinErrorToStr(err));
     
     assert(err == BinGetLastError(&ctx));
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     err = BinGetLastError(&ctx);
     
     if (err != BIN_E_OK)
-        return fprintf(stderr, "something wrong has heppen: %s\n", BinErrorToStr(err));
+        return fprintf(stderr, "something wrong has happen: %s\n", BinErrorToStr(err));
     
     printf("%s has been opened for parser\n", BinGetFilename(&ctx));
 
