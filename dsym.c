@@ -11,35 +11,37 @@ int main(int argc, char *argv[])
 	BinCtx_t ctx;
 	BinError_t err;
 
-	BinLoadFile(argv[1], &ctx);
+	bin_load_file(argv[1], &ctx);
 
-	err = BinGetLastError(&ctx);
+	err = bin_get_last_error(&ctx);
 
 	if (err != BIN_E_OK)
 	{
-		return fprintf(stderr, "Something wrong has happen: %s\n", BinErrorToStr(err));
+		return fprintf(stderr, "Something wrong has happen: %s\n", bin_error_to_str(err));
 	}
 
-	assert(err == BinGetLastError(&ctx));
+	/* Assert test */
+	assert(err == bin_get_last_error(&ctx));
 
-	BinParser(&ctx);
+	bin_parser(&ctx);
 
-	err = BinGetLastError(&ctx);
+	err = bin_get_last_error(&ctx);
 	
 	if (err != BIN_E_OK)
 	{
-		return fprintf(stderr, "Something wrong has happen: %s\n", BinErrorToStr(err));
+		return fprintf(stderr, "Something wrong has happen: %s\n", bin_error_to_str(err));
 	}
 
-	printf("%s was been opened for parser\n", BinGetFilename(&ctx));
+	printf("%s was been opened for parser\n", bin_get_filename(&ctx));
 
-	printf("Binary size: %ld\n", BinGetObjectSize(&ctx));
+	printf("Binary size: %ld\n", bin_get_obj_size(&ctx));
 
 	printf("Binary type is: %s\n", 
-		BinObjectTypeToStr(BinObjectGetType(&ctx))
+		bin_obj_type_to_str(bin_get_obj_type(&ctx))
 	);
 
-	BinFinish(&ctx);
+	/* bin_unload call isn't required */
+	bin_finish(&ctx);
 
 	return err;
 }
