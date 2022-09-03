@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include <bin/bin.h>
+#include <bin/binary.h>
 
 int main(int argc, char *argv[])
 {
@@ -9,11 +9,17 @@ int main(int argc, char *argv[])
         return argc;
 
     BinCtx_t ctx;
-    BinError_t err = BinLoadFile(argv[1], &ctx);
+    BinError_t err;
+
+    BinLoadFile(argv[1], &ctx);
+
+    err = BinGetLastError(&ctx);
 
     if (err != BIN_E_OK)
-        return fprintf(stderr, "something wrong has happen: %s\n", BinErrorToStr(err));
-    
+    {
+        return fprintf(stderr, "Something wrong has happen: %s\n", BinErrorToStr(err));
+    }
+
     assert(err == BinGetLastError(&ctx));
 
     BinParser(&ctx);
@@ -21,18 +27,19 @@ int main(int argc, char *argv[])
     err = BinGetLastError(&ctx);
     
     if (err != BIN_E_OK)
-        return fprintf(stderr, "something wrong has happen: %s\n", BinErrorToStr(err));
-    
-    printf("%s has been opened for parser\n", BinGetFilename(&ctx));
+    {
+        return fprintf(stderr, "Something wrong has happen: %s\n", BinErrorToStr(err));
+    }
 
-    printf("binary size: %ld\n", BinGetBinarySize(&ctx));
+    printf("%s was been opened for parser\n", BinGetFilename(&ctx));
 
-    printf("binary type is: %s\n", 
-        BinBinaryTypeToStr(BinGetType(&ctx))
+    printf("Binary size: %ld\n", BinGetObjectSize(&ctx));
+
+    printf("Binary type is: %s\n", 
+        BinObjectTypeToStr(BinObjectGetType(&ctx))
     );
 
     BinFinish(&ctx);
-    
 
     return err;
 }
