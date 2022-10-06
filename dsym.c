@@ -3,6 +3,8 @@
 
 #include <bin/binary.h>
 
+static bool SymbolsFunc(BinCtx_t *ctx, const ObjectSymbol_t *funcObject, ObjectSymbol_t *userObject);
+
 int main(int argc, char *argv[])
 {
     if (argc < 2) {
@@ -40,8 +42,19 @@ int main(int argc, char *argv[])
     printf("Binary endianness: %s\n", bin_cpu_endian_to_str(bin_obj_get_endian(&ctx)));
     printf("Binary arch: %s\n", bin_class_to_str(bin_obj_get_class(&ctx)));
 
+    /* Getting symbols */
+    bin_obj_symbols_foreach(&ctx, SymbolsFunc, NULL);
+
     /* bin_unload call isn't required */
     bin_finish(&ctx);
     return err;
 }
+
+static bool SymbolsFunc(BinCtx_t *ctx, const ObjectSymbol_t *funcObject, ObjectSymbol_t *userObject)
+{
+    (void)ctx;
+    (void)funcObject;
+    (void)userObject;
+}
+
 
