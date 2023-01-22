@@ -1,6 +1,6 @@
-# dsym
+# dumpsymb
 
-A sample program for libbin library created by the same author 
+A sample program for [[xtext]] library created by the same author! 
 
 ## Dependencies
 
@@ -9,6 +9,11 @@ A sample program for libbin library created by the same author
 ## How to build
 
 ~~~bash
-dsym> make
+dumpsymb> mkdir build; cd build
+build> cmake ..; make
+
+# Or using ninja as the builder
+build> cmake -GNinja ..; ninja
+
 ~~~
 
