@@ -1,10 +1,10 @@
 # dumpsymb
 
-A sample program for [[xtext]] library created by the same author! 
+A sample program for libxtext created by the same author
 
 ## Dependencies
 
-- [libbin](https://github.com/ocorreia18/libbin)
+- [libxtext](https://github.com/shadergz/libxtext)
 
 ## How to build
 
